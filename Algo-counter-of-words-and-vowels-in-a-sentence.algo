@@ -12,37 +12,35 @@ ALGORITHM ALGORITHM-COUNTER-OF-WORDS-AND-VOWELS-IN-A-SENTENCE
 // The last character is the point.
 // Use three variables as counters.
 VAR
-    vowel : CHAR := 'a' 'A' 'e' 'E' 'i' 'I' 'o' 'O' 'u' 'U'
+    vowels : ARRAY_OF CHAR := {'a', 'A', 'e', 'E', 'i', 'I', 'o', 'O', 'u', 'U'}
     letter : CHAR
     letter_count : INTEGER := 0
     word_count : INTEGER := 0
     vowel_count : INTEGER := 0
     length : INTEGER := 0
 BEGIN
-REPEAT
-    Read (letter)
-    length := length + 1
+    REPEAT
+        Read (letter)
+        length := length + 1
     // Check if the character is a space to count words
-    if letter = ' ' then
-        word_count := word_count + 1
-    end if
+        IF letter = ' ' THEN
+            word_count := word_count + 1
     // Check if the character is a vowel to count vowels
-    if letter = 'a' or letter = 'e' or letter = 'i' or letter = 'o' or letter = 'u' or letter = 'A' or letter = 'E' or letter = 'I' or letter = 'O' or letter = 'U' THEN
-        vowel_count := vowel_count + 1
-    END IF
+        ELSE_IF (letter in vowels ) THEN
+            vowel_count := vowel_count + 1
+        ELSE_IF (letter = '.') THEN
     // Check if the character is a point to end the loop
-        if letter = '.' THEN
         // Since the last character is a point, we need to subtract it from the length count
             length := length - 1
             // The number of words is the number of spaces plus one (for the last word)
             word_count := word_count + 1
-            // Output the results
-            PRINT("Length of the sentence: ", length)
-            PRINT("Number of words: ", word_count)
-            PRINT("Number of vowels: ", vowel_count)
         END IF
-    END IF
-UNTIL (letter = '.')
+    UNTIL (letter = '.')
+
+            // Output the results
+    Write("Length of the sentence: ", length)
+    Write("Number of words: ", word_count)
+    Write("Number of vowels: ", vowel_count)
 END
 
 //          ANOTHER BETTER VERSION
@@ -67,7 +65,7 @@ BEGIN
     word_count := word_count + 1
     
     // Output the results
-    PRINT("Length of the sentence: ", length)
-    PRINT("Number of words: ", word_count)
-    PRINT("Number of vowels: ", vowel_count)
+    Write("Length of the sentence: ", length)
+    Write("Number of words: ", word_count)
+    Write("Number of vowels: ", vowel_count)
 END
